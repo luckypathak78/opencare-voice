@@ -10,7 +10,7 @@ const handleLogin = async (e) => {
   e.preventDefault();
 
   try {
-    const res = await fetch("http://localhost:3000/api/auth/login", {
+    const res = await fetch("http://127.0.0.1:3000/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +20,7 @@ const handleLogin = async (e) => {
 
     const data = await res.json();
 
-    console.log(data); // 👈 see token in console
+    console.log(data); 
 
     if (data.token) {
       localStorage.setItem("token", data.token);
@@ -51,17 +51,17 @@ const handleLogin = async (e) => {
               type="email"
               placeholder="Email"  value={email}
   onChange={(e) => setEmail(e.target.value)}
-              className="w-full border p-2 rounded"
+              className="w-full border p-2 rounded text-black bg-white"
             />
 
             <input
               type="password"
               placeholder="Password"  value={password}
   onChange={(e) => setPassword(e.target.value)}
-              className="w-full border p-2 rounded"
+              className="w-full border p-2 rounded text-black bg-white"
             />
 
-            <button className="w-full bg-blue-600 text-white py-2 rounded">
+            <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded">
               Login
             </button>
 
