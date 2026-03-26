@@ -11,6 +11,7 @@ function Navbar() {
         <a href="/dashboard" className="hover:underline">Dashboard</a>
         <a href="/login" className="hover:underline">Login</a>
         <a href="/Signup" className="hover:underline">Signup</a>
+         <a href="/Myprofile" className="hover:underline">Myprofile</a>
 
       </div>
     </nav>

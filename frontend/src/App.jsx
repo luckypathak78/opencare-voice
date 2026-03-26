@@ -5,24 +5,27 @@ import Dashboard from "./pages/Dashboard";
 import ReportIssue from "./pages/ReportIssue";
 import Login from "./pages/Login";
 import Signup from "./pages/signup";
+import Myprofile from "./pages/myprofile";
 
 // Reusable wrapper for page content
-const PageWrapper = ({ children, title }) => (
-  <div className="flex flex-col items-center">
-     <h2 className="text-4xl font-bold text-white mb-3">{title}</h2>
-    <p className="text-gray-300 mb-6 max-w-xl">
-      A community-driven platform to report and resolve issues in government hospitals.
-    </p>
+function PageWrapper({ children, title }) {
+  return (
+    <div className="flex flex-col items-center">
+      <h2 className="text-4xl font-bold text-white mb-3">{title}</h2>
+      <p className="text-gray-300 mb-6 max-w-xl">
+        A community-driven platform to report and resolve issues in government hospitals.
+      </p>
 
-    {/* Badge */}
-    <div className="mb-8 bg-green-500/20 text-green-300 px-4 py-1 rounded-full text-sm">
-      ✅ 100% Free • Open Source • Community Driven
+      {/* Badge */}
+      <div className="mb-8 bg-green-500/20 text-green-300 px-4 py-1 rounded-full text-sm">
+        ✅ 100% Free • Open Source • Community Driven
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
+        {children}
+      </div>
     </div>
-       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
-      {children}
-    </div>
-  </div>
-);
+  );
+}
 function App() {
   return (
     <BrowserRouter>
@@ -46,6 +49,7 @@ function App() {
             <button className="bg-green-500 px-3 py-1 rounded-lg hover:bg-green-600">
             Signup
               </button></Link>
+              <Link to="/Myprofile">MyProfile</Link>
           </div>
         </nav>
 
@@ -87,6 +91,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/Myprofile" element={<Myprofile />} />
           </Routes>
         </div>
 
