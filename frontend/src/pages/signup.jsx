@@ -7,6 +7,35 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSignup = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("http://127.0.0.1:3000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      }),
+    });
+
+    const data = await res.json();
+    console.log("SIGNUP RESPONSE:", data);
+
+    if (res.ok) {
+      alert("Signup successful");
+    } else {
+      alert(data.message || "Signup failed");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  }
+};
   return (
     <>
       <Navbar />
@@ -19,7 +48,7 @@ function Signup() {
             Create Account
           </h2>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSignup} className="space-y-4">
 
             <input
               type="text"

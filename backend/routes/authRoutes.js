@@ -4,12 +4,15 @@ const db = require("../config/db");
 const jwt = require("jsonwebtoken");
 
 // Register user
-router.post("/register", (req, res) => {
-  const { name, email, password } = req.body;
 
+  router.post("/register", (req, res) => {
+  const nameClean = req.body.name.trim();
+  const emailClean = req.body.email.trim().toLowerCase();
+  const passwordClean = req.body.password.trim();
+  
+console.log("Register hit:", nameClean, emailClean);
   const query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-
-  db.query(query, [name, email, password], (err, result) => {
+db.query(query, [nameClean, emailClean, passwordClean], (err, result) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -22,11 +25,12 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  const { email, password } = req.body;
+  const emailClean = req.body.email.trim().toLowerCase();
+  const passwordClean = req.body.password.trim();
 
   const query = "SELECT * FROM users WHERE email = ?";
 
-  db.query(query, [email], (err, result) => {
+  db.query(query, [emailClean], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
 
     if (result.length === 0) {
@@ -35,7 +39,7 @@ router.post("/login", (req, res) => {
 
     const user = result[0];
 
-    if (user.password !== password) {
+    if (user.password !== passwordClean) {
       return res.status(400).json({ message: "Invalid password" });
     }
 
