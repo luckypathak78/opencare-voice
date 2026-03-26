@@ -26,14 +26,14 @@ const ReportIssue = ({ addIssue }) => {
           <input
             type="text"
             placeholder="Hospital Name"
-            className="w-full border rounded-lg px-3 py-2"
+            className="w-full border rounded-lg px-3 py-2 text-black bg-white"
             value={hospital}
             onChange={(e) => setHospital(e.target.value)}
             required
           />
 
           <select
-            className="w-full border rounded-lg px-3 py-2"
+            className="w-full border rounded-lg px-3 py-2 text-black bg-white"
             value={type}
             onChange={(e) => setType(e.target.value)}
           >
@@ -46,10 +46,15 @@ const ReportIssue = ({ addIssue }) => {
           <textarea
             rows="4"
             placeholder="Describe the issue..."
-            className="w-full border rounded-lg px-3 py-2"
+            className="w-full border rounded-lg px-3 py-2 text-black bg-white"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
           />
 
           <button
