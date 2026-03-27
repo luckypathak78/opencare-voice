@@ -5,7 +5,7 @@ require("dotenv").config();
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'root12345',       // put your MySQL password here
+  password: 'root1906',       // put your MySQL password here
   database: 'opencare' // name of your database
 });
 
