@@ -1,48 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import IssueCard from "../components/IssueCard";
+import axios from "axios";
 
 function Dashboard() {
+  const [issues, setIssues] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const issues = [
-    {
-      hospital: "District Hospital",
-      description: "Sanitation problem in ward 3",
-      status: "Open",
-      votes: 12
-    },
-    {
-      hospital: "City Hospital",
-      description: "Medicine shortage in emergency ward",
-      status: "In Progress",
-      votes: 8
+  useEffect(() => {
+    fetchIssues();
+  }, []);
+
+  const fetchIssues = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/issues");
+      setIssues(res.data);
+    } catch (error) {
+      console.error("Error fetching issues:", error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
   return (
     <>
       <Navbar />
 
       <div className="p-10 bg-gray-50 min-h-screen">
-
         <h1 className="text-3xl font-bold mb-6">
           All Reported Issues
         </h1>
 
-        <div className="grid md:grid-cols-2 gap-6">
-
-          {issues.map((issue, index) => (
-            <IssueCard
-              key={index}
-              hospital={issue.hospital}
-              description={issue.description}
-              status={issue.status}
-              votes={issue.votes}
-            />
-          ))}
-
-        </div>
-
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-6">
+            {issues.map((issue) => (
+              <IssueCard
+                key={issue.id}
+                hospital={issue.hospitalName}
+                description={issue.description}
+                status={issue.status || "Open"}
+                votes={issue.votes || 0}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
